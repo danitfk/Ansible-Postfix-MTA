@@ -3,7 +3,7 @@
   hostname:
      name: "{{ hostname  }}"
   when:
-     - ansible_facts['ansible_hostname'] != "{{ hostname }}"
+     - inventory_hostname != "{{ hostname }}"
 
 - name: "Set Timezone"
   timezone:
@@ -13,11 +13,6 @@
 - name: "Install Postfix SMTP Server"
   apt:
      name: "postfix"
-     state: "latest"
-
-- name: "Install OpenDKIM"
-  apt:
-     name: "opendkim"
      state: "latest"
 
 - name: "Install Mail Utilities"
@@ -33,8 +28,9 @@
 - name: "Add SMTP Rules rules"
   ufw:
      rule: allow
-     proto: smtp
+     proto: tcp
      src: "{{ item }}"
+     port: 25
   with_items: "{{ firewall_access }}"
 
 - name: "Generate Postfix configuration file"
