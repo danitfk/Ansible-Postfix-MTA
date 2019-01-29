@@ -32,6 +32,17 @@
      src: "{{ loadbalancer_ip }}"
      port: 25
 
+- name: "Add SSH Rule"
+  ufw:
+     rule: allow
+     proto: tcp
+     port: 22
+
+- name: "Start Firewall"
+  service:
+     name: "ufw"
+     state: "started"
+
 - name: "Generate Postfix configuration file"
   template:
      src: main.cf.j2
