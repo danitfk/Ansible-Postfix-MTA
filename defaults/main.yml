@@ -1,6 +1,6 @@
 timezone: "Asia/Tehran"
 hostname: "chapar04.afr.hezardastan.net"
 mynetworks: "127.0.0.0/8 79.175.191.0/24 172.19.0.0/16 79.175.141.0/24"
-loadbalacer_ip: "79.175.191.238"
+loadbalancer_ip: "79.175.191.238"
 haproxy: "true"
 opendkim: "true"
