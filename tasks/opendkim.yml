@@ -11,7 +11,7 @@
   
 - name: "Copy DKIM keys into server"
   copy:
-     src: secret/dkim_files
+     src: secret/dkim_keys
      dest: /etc/postfix/
 
 - name: "Set permission opendkim permission in keys"
@@ -19,6 +19,17 @@
     path: /etc/postfix/dkim_keys
     owner: "opendkim"
     group: "opendkim"
+
+- name: "Copy opendkim files into server"
+  copy:
+     src: "{{ item }}"
+     dest: /etc/opendkim/
+     owner: opendkim
+     group: opendkim
+  with_items:
+     - secret/KeyTable
+     - secret/SigningTable
+     - secret/TrustedHosts
 
 - name: "Restart and Enable OpenDKIM Service"
   service:

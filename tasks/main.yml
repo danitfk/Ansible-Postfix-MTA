@@ -29,9 +29,8 @@
   ufw:
      rule: allow
      proto: tcp
-     src: "{{ item }}"
+     src: "{{ loadbalancer_ip }}"
      port: 25
-  with_items: "{{ firewall_access }}"
 
 - name: "Generate Postfix configuration file"
   template:
