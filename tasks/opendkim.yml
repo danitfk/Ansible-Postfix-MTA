@@ -1,4 +1,9 @@
 ---
+- name: "Install OpenDKIM"
+  apt:
+     name: "opendkim"
+     state: "latest"
+
 - name: "Copy OpenDKIM Config file into server"
   copy:
     src: opendkim.conf
