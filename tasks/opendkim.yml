@@ -1,0 +1,22 @@
+---
+- name: "Copy OpenDKIM Config file into server"
+  copy:
+    src: opendkim.conf
+    dest: /etc/opendkim.conf
+  
+- name: "Copy DKIM keys into server"
+  copy:
+     src: secret/dkim_files
+     dest: /etc/postfix/
+
+- name: "Set permission opendkim permission in keys"
+  file:
+    path: /etc/postfix/dkim_keys
+    owner: "opendkim"
+    group: "opendkim"
+
+- name: "Restart and Enable OpenDKIM Service"
+  service:
+     name: "opendkim"
+     state: "restarted"
+     enabled: "yes"

@@ -1,0 +1,53 @@
+---
+- name: "Check Hostname"
+  hostname:
+     name: "{{ hostname  }}"
+  when:
+     - ansible_facts['ansible_hostname'] != "{{ hostname }}"
+
+- name: "Set Timezone"
+  timezone:
+     name: "{{ timezone }}"
+
+
+- name: "Install Postfix SMTP Server"
+  apt:
+     name: "postfix"
+     state: "latest"
+
+- name: "Install OpenDKIM"
+  apt:
+     name: "opendkim"
+     state: "latest"
+
+- name: "Install Mail Utilities"
+  apt:
+     name: "mailutils"
+     state: "latest"
+
+- name: "Enable Firewall"
+  service:
+     name: "ufw"
+     enabled: "yes"
+
+- name: "Add SMTP Rules rules"
+  ufw:
+     rule: allow
+     proto: smtp
+     src: "{{ item }}"
+  with_items: "{{ firewall_access }}"
+
+- name: "Generate Postfix configuration file"
+  template:
+     src: main.cf.j2
+     dest: /etc/postfix/main.cf
+
+- name: "Restart and Enable Postfix Service"
+  service:
+     name: "postfix"
+     state: "restarted"
+     enabled: "yes"
+
+- name: "Configure OpenDKIM on Postfix"
+  include: opendkim.yml
+  when: opendkim
