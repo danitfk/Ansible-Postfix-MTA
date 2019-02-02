@@ -15,6 +15,9 @@
      name: "postfix"
      state: "latest"
 
+- name: "Change Mailname to Hostname"
+  shell: echo "{{ hostname }}" > /etc/mailname
+
 - name: "Install Mail Utilities"
   apt:
      name: "mailutils"
@@ -47,6 +50,12 @@
   template:
      src: main.cf.j2
      dest: /etc/postfix/main.cf
+
+- name: "Copy blacklisted_domains file"
+  copy:
+     src: secret/blacklisted_domains
+     dest: /etc/postfix/blacklisted_domains
+  when: outgoing_policy
 
 - name: "Restart and Enable Postfix Service"
   service:
