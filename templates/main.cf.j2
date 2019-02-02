@@ -49,7 +49,7 @@ smtpd_tls_loglevel = 1
 {% if haproxy is sameas true %}
 postscreen_upstream_proxy_protocol = haproxy
 {% endif %}
-{% if ougoing_policy is sameas true %}
+{% if outgoing_policy is sameas true %}
 smtpd_client_restrictions = check_recipient_access hash:/etc/postfix/blacklisted_domains, permit_mynetworks
 restrictive = reject_unknown_sender_domain reject_unknown_client_hostname
-{% endif }
+{% endif %}
