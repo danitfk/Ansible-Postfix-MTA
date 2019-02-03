@@ -30,25 +30,31 @@ alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
 mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
-mynetworks = "{{ mynetworks  }}"
+mynetworks = {{ mynetworks  }}
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
 smtpd_client_restrictions = permit_mynetworks, reject
+
+# DKIM Signing
+
 {% if opendkim is sameas true %}
 milter_protocol = 2
 milter_default_action = accept
 smtpd_milters = inet:localhost:12301
 non_smtpd_milters = inet:localhost:12301
 {% endif %}
+
 smtpd_tls_security_level = may
 smtp_tls_security_level = may
 smtp_tls_loglevel = 1
 smtpd_tls_loglevel = 1
+### HAProxy as loadbalancer
 {% if haproxy is sameas true %}
 postscreen_upstream_proxy_protocol = haproxy
 {% endif %}
+### Outgoing Policy
 {% if outgoing_policy is sameas true %}
 smtpd_client_restrictions = check_recipient_access hash:/etc/postfix/blacklisted_domains, permit_mynetworks
 restrictive = reject_unknown_sender_domain reject_unknown_client_hostname
