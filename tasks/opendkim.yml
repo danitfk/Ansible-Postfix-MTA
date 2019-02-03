@@ -14,12 +14,6 @@
      src: secret/dkim_keys
      dest: /etc/postfix/
 
-- name: "Set permission opendkim permission in keys"
-  file:
-    path: /etc/postfix/dkim_keys
-    owner: "opendkim"
-    group: "opendkim"
-
 - name: "Copy opendkim files into server"
   copy:
      src: "{{ item }}"
@@ -30,6 +24,14 @@
      - secret/KeyTable
      - secret/SigningTable
      - secret/TrustedHosts
+
+- name: "Set permission opendkim permission in keys"
+  file:
+    path: /etc/postfix/dkim_keys
+    owner: "opendkim"
+    group: "opendkim"
+    mode: 0700
+    recurse: yes
 
 - name: "Restart and Enable OpenDKIM Service"
   service:
