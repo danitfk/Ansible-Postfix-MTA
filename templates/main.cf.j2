@@ -35,7 +35,6 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
-smtpd_client_restrictions = permit_mynetworks, reject
 
 # DKIM Signing
 
@@ -58,4 +57,10 @@ postscreen_upstream_proxy_protocol = haproxy
 {% if outgoing_policy is sameas true %}
 smtpd_client_restrictions = check_recipient_access hash:/etc/postfix/blacklisted_domains, permit_mynetworks
 restrictive = reject_unknown_sender_domain reject_unknown_client_hostname
+{% else %}
+smtpd_client_restrictions = permit_mynetworks, reject
 {% endif %}
+
+### Performance Tuning
+smtpd_client_connection_count_limit = 500
+
