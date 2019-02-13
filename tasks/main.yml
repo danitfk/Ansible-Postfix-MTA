@@ -57,6 +57,10 @@
      dest: /etc/postfix/blacklisted_domains
   when: outgoing_policy
 
+- name: "Create postfix map file for blacklist domain"
+  command: postmap /etc/postfix/blacklisted_domains
+  when: outgoing_policy
+
 - name: "Restart and Enable Postfix Service"
   service:
      name: "postfix"
