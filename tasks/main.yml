@@ -27,6 +27,7 @@
   service:
      name: "ufw"
      enabled: "yes"
+  when: firewall
 
 - name: "Add SMTP Rules rules"
   ufw:
