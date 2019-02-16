@@ -61,6 +61,16 @@
   command: postmap /etc/postfix/blacklisted_domains
   when: outgoing_policy
 
+- name: "Copy transport file"
+  copy:
+     src: secret/transport
+     dest: /etc/postfix/transport
+  when: rate_limit
+
+- name: "Create postfix map file for transport file"
+  command: postmap /etc/postfix/transport
+  when: rate_limit
+
 - name: "Restart and Enable Postfix Service"
   service:
      name: "postfix"
