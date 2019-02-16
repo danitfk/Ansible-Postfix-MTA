@@ -13,7 +13,7 @@
 - name: "Install Postfix SMTP Server"
   apt:
      name: "postfix"
-     state: "latest"
+     state: "present"
 
 - name: "Change Mailname to Hostname"
   shell: echo "{{ hostname }}" > /etc/mailname
@@ -21,7 +21,7 @@
 - name: "Install Mail Utilities"
   apt:
      name: "mailutils"
-     state: "latest"
+     state: "present"
 
 - name: "Enable Firewall"
   service:
