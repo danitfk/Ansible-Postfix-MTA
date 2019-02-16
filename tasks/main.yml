@@ -71,6 +71,12 @@
   command: postmap /etc/postfix/transport
   when: rate_limit
 
+- name: "Generate Postfix master.cf configuration file"
+  template:
+     src: master.cf.j2
+     dest: /etc/postfix/master.cf
+
+
 - name: "Restart and Enable Postfix Service"
   service:
      name: "postfix"
