@@ -61,6 +61,19 @@ restrictive = reject_unknown_sender_domain reject_unknown_client_hostname
 smtpd_client_restrictions = permit_mynetworks, reject
 {% endif %}
 
-### Performance Tuning
+### SMTP Rate Limit
+smtp_destination_concurrency_limit = 2
+smtp_destination_rate_delay = 2s
+smtp_extra_recipient_limit = 10
 smtpd_client_connection_count_limit = 500
 
+{% if rate_limit sameas true %}
+### Rate Limit Configurations
+transport_maps = hash:/etc/postfix/transport
+
+### Lakposht (Yahoo, AOL) Rate Limit
+lakposht_destination_rate_delay = 60s
+lakposht_destination_concurrency_limit = 1
+lakposht_destination_recipient_limit = 2
+
+{% endif %}
