@@ -67,7 +67,7 @@ smtp_destination_rate_delay = 2s
 smtp_extra_recipient_limit = 10
 smtpd_client_connection_count_limit = 500
 
-{% if rate_limit sameas true %}
+{% if rate_limit is sameas true %}
 ### Rate Limit Configurations
 transport_maps = hash:/etc/postfix/transport
 
