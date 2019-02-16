@@ -124,6 +124,6 @@ mailman   unix  -       n       n       -       -       pipe
   flags=FR user=list argv=/usr/lib/mailman/bin/postfix-to-mailman.py
   ${nexthop} ${user}
 
-{% if rate_limit sameas true %}
+{% if rate_limit is sameas true %}
 lakposht unix - - n - - smtp
 {% endif %}
