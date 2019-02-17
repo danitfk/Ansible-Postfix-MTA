@@ -20,7 +20,7 @@
   systemd:
      name: postfix-queue
      daemon_reload: yes
-     state: started
+     state: restarted
      enabled: yes
   
 - name: "Allow Monitoring server IP address to Web statistics"

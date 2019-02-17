@@ -8,7 +8,7 @@ import (
 )
 
 func active(w http.ResponseWriter, r *http.Request){
-    cmd := exec.Command("/home/dani/postfix.sh", "monitoring_active")
+    cmd := exec.Command("/usr/bin/postfix-toolkit.sh", "monitoring_active")
     out, err := cmd.CombinedOutput()
     if err != nil {
            log.Fatalf("cmd.Run() failed with %s\n", err)
@@ -16,7 +16,7 @@ func active(w http.ResponseWriter, r *http.Request){
     fmt.Fprint(w,string(out))
 }
 func all(w http.ResponseWriter, r *http.Request){
-    cmd := exec.Command("/home/dani/postfix.sh", "monitoring_all")
+    cmd := exec.Command("/usr/bin/postfix-toolkit.sh", "monitoring_all")
     out, err := cmd.CombinedOutput()
     if err != nil {
            log.Fatalf("cmd.Run() failed with %s\n", err)
@@ -25,7 +25,7 @@ func all(w http.ResponseWriter, r *http.Request){
 }
 
 func deferred(w http.ResponseWriter, r *http.Request){
-    cmd := exec.Command("/home/dani/postfix.sh", "monitoring_deferred")
+    cmd := exec.Command("/usr/bin/postfix-toolkit.sh", "monitoring_deferred")
     out, err := cmd.CombinedOutput()
     if err != nil {
            log.Fatalf("cmd.Run() failed with %s\n", err)
