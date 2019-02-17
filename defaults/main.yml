@@ -12,3 +12,8 @@ rsyslog_server: rsyslog.hezardastan.net
 rsyslog_port: 514
 monitoring: true
 monitoring_server_ip: 194.34.160.20
+
+
+
+###
+smtp_maximum_connection: 5000

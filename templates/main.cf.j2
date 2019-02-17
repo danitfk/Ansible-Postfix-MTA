@@ -35,9 +35,10 @@ mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
+smtpd_client_connection_count_limit = {{ smtp_maximum_connection }}
 
-# DKIM Signing
 
+### DKIM Signing
 {% if opendkim is sameas true %}
 milter_protocol = 2
 milter_default_action = accept
@@ -61,15 +62,14 @@ restrictive = reject_unknown_sender_domain reject_unknown_client_hostname
 smtpd_client_restrictions = permit_mynetworks, reject
 {% endif %}
 
-### SMTP Rate Limit
-#smtp_destination_concurrency_limit = 2
-#smtp_destination_rate_delay = 2s
-#smtp_extra_recipient_limit = 10
-smtpd_client_connection_count_limit = 2000
-
 {% if rate_limit is sameas true %}
 ### Rate Limit Configurations
 transport_maps = hash:/etc/postfix/transport
+
+### SMTP Rate Limit
+smtp_destination_concurrency_limit = 2
+smtp_destination_rate_delay = 2s
+smtp_extra_recipient_limit = 10
 
 ### Lakposht (Yahoo, AOL) Rate Limit
 lakposht_destination_rate_delay = 60s
