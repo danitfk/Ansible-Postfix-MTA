@@ -87,3 +87,7 @@
 - name: "Configure OpenDKIM on Postfix"
   include: opendkim.yml
   when: opendkim
+
+- name: "Configure rsyslog service on Server"
+  include: rsyslog.yml
+  when: rsyslog
