@@ -17,3 +17,4 @@ This playbook will deploy a **Postfix** as an MTA server to sends emails from on
 - Supports DKIM Signature (opendkim)
 - Queue Management
 - Secure network access and manage UFW Firewall
+- Supports Rsyslog Server
