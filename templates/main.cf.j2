@@ -62,10 +62,10 @@ smtpd_client_restrictions = permit_mynetworks, reject
 {% endif %}
 
 ### SMTP Rate Limit
-smtp_destination_concurrency_limit = 2
-smtp_destination_rate_delay = 2s
-smtp_extra_recipient_limit = 10
-smtpd_client_connection_count_limit = 500
+#smtp_destination_concurrency_limit = 2
+#smtp_destination_rate_delay = 2s
+#smtp_extra_recipient_limit = 10
+smtpd_client_connection_count_limit = 2000
 
 {% if rate_limit is sameas true %}
 ### Rate Limit Configurations
@@ -75,5 +75,13 @@ transport_maps = hash:/etc/postfix/transport
 lakposht_destination_rate_delay = 60s
 lakposht_destination_concurrency_limit = 1
 lakposht_destination_recipient_limit = 2
+{% endif %}
+
+{% if queue_management is sameas true %}
+### Queue Management
+queue_run_delay = 300s
+minimal_backoff_time = 300s
+maximal_backoff_time = 30m
+maximal_queue_lifetime = 1h
 
 {% endif %}
