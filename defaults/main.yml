@@ -10,3 +10,4 @@ queue_management: true
 rsyslog: true
 rsyslog_server: rsyslog.hezardastan.net
 rsyslog_port: 514
+monitoring: true
