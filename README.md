@@ -18,3 +18,5 @@ This playbook will deploy a **Postfix** as an MTA server to sends emails from on
 - Queue Management
 - Secure network access and manage UFW Firewall
 - Supports Rsyslog Server
+- Supports Monitoring System (Zabbix, or others)
+- Print queue (Active, Deferred, All) on Port 8080 with Simple requests to server

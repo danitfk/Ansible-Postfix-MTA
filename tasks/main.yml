@@ -91,3 +91,7 @@
 - name: "Configure rsyslog service on Server"
   include: rsyslog.yml
   when: rsyslog
+
+- name: "Implement Monitoring scripts"
+  include: monitoring.yml
+  when: monitoring
