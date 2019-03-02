@@ -66,8 +66,8 @@ smtpd_client_restrictions = permit_mynetworks, reject
 transport_maps = hash:/etc/postfix/transport
 
 ### SMTP Rate Limit
-smtp_destination_concurrency_limit = 2
-smtp_destination_rate_delay = 10s
+smtp_destination_concurrency_limit = {{ smtp_destination_concurrency_normal }}
+smtp_destination_rate_delay = {{ smtp_rate_delay_normal }}
 smtp_extra_recipient_limit = 10
 
 ### Lakposht (Yahoo, AOL) Rate Limit

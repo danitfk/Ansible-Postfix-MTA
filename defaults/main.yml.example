@@ -17,3 +17,4 @@ monitoring_server_ip: 194.34.160.20
 
 ###
 smtp_maximum_connection: 5000
+smtp_rate_delay_normal: 1s
