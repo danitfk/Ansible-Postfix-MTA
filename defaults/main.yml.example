@@ -1,6 +1,6 @@
 timezone: "Asia/Tehran"
-mynetworks: 127.0.0.0/8 79.175.191.0/24 172.19.0.0/16 79.175.141.0/24 79.175.132.0/25
-loadbalancer_ip: 79.175.191.238
+mynetworks: 127.0.0.0/8 172.19.0.0/16
+loadbalancer_ip: 192.168.1.1
 haproxy: true
 opendkim: true
 outgoing_policy: true
