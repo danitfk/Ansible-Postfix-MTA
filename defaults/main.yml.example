@@ -14,7 +14,10 @@ monitoring: true
 monitoring_server_ip: 194.34.160.20
 
 
+# Maximum Emails in queue default is 20,000
+maximum_active_queue: 30000
 
 ###
 smtp_maximum_connection: 5000
 smtp_rate_delay_normal: 1s
+smtp_destination_concurrency_normal: 10
