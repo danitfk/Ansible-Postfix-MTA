@@ -12,6 +12,8 @@ rsyslog_server: rsyslog.hezardastan.net
 rsyslog_port: 514
 monitoring: true
 monitoring_server_ip: 194.34.160.20
+# Mail routing is necessary when use rate limit
+mail_routing: true
 
 
 # Maximum Emails in queue default is 20,000

@@ -4,7 +4,7 @@ loadbalancer_ip: 79.175.191.238
 haproxy: true
 opendkim: true
 outgoing_policy: true
-rate_limit: true
+rate_limit: false
 firewall: true
 queue_management: true
 rsyslog: true
@@ -12,7 +12,8 @@ rsyslog_server: rsyslog.hezardastan.net
 rsyslog_port: 514
 monitoring: true
 monitoring_server_ip: 194.34.160.20
-
+# Mail routing is necessary when use rate limit
+mail_routing: true
 # Maximum Emails in queue default is 20,000
 maximum_active_queue: 30000
 

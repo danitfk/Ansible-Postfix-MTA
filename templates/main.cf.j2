@@ -61,9 +61,12 @@ smtpd_client_restrictions = check_recipient_access hash:/etc/postfix/blacklisted
 smtpd_client_restrictions = permit_mynetworks, reject
 {% endif %}
 
-{% if rate_limit is sameas true %}
-### Rate Limit Configurations
+{% if mail_routing is sameas true %}
+### Mail Routing (necessary when use rate limit)
 transport_maps = hash:/etc/postfix/transport
+{% endif %}
+
+{% if rate_limit is sameas true %}
 
 ### SMTP Rate Limit
 smtp_destination_concurrency_limit = {{ smtp_destination_concurrency_normal }}
