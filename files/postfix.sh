@@ -96,7 +96,7 @@ function delete_domain {
 	ids=$(postqueue -j | grep $arg1 | grep -o queue_id.* | cut -d"\"" -f3)
 	for id in $ids
 	do
-		sudo postsuper -d $id
+		sudo postsuper -d $id &> /dev/null
 	done
 
 
