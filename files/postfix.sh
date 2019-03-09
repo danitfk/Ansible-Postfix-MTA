@@ -94,11 +94,14 @@ function delete_domain {
 		exit 1
 	fi
 	ids=$(postqueue -j | grep $arg1 | grep -o queue_id.* | cut -d"\"" -f3)
+	COUNT="0"
 	for id in $ids
 	do
 		sudo postsuper -d $id &> /dev/null
+	PRE_COUNT=$(expr $COUNT + 1)
+	COUNT=$(echo $PRECOUNT)
 	done
-
+	echo $COUNT
 
 }
 
