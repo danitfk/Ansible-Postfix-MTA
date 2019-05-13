@@ -57,7 +57,7 @@ postscreen_upstream_proxy_protocol = haproxy
 ### Outgoing Policy
 {% if outgoing_policy is sameas true %}
 smtpd_client_restrictions = check_recipient_access hash:/etc/postfix/blacklisted_domains, permit_mynetworks
-smtpd_recipient_restrictions = check_sender_access hash:/etc/postfix/sender_access, permit_mynetworks
+#smtpd_recipient_restrictions = check_sender_access hash:/etc/postfix/sender_access, permit_mynetworks
 {% else %}
 smtpd_client_restrictions = permit_mynetworks, reject
 {% endif %}
