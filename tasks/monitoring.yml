@@ -1,0 +1,31 @@
+---
+- name: "Copy Postfix Toolkit file"
+  copy:
+     src: postfix.sh
+     dest: /usr/bin/postfix-toolkit.sh
+     mode: 0755
+
+- name: "Copy Web Statistics binary"
+  copy:
+     src: postfix-queue
+     dest: /usr/bin/postfix-queue
+     mode: 0755
+
+- name: "Make sure systemd file of postfix-queue existed"
+  copy:
+     src: postfix-queue.service
+     dest: /etc/systemd/system/postfix-queue.service
+
+- name: "Make sure postfix-queue.service enabled and running"
+  systemd:
+     name: postfix-queue
+     daemon_reload: yes
+     state: restarted
+     enabled: yes
+- name: "Allow Monitoring server IP address to Web statistics"
+  ufw:
+     rule: allow
+     proto: tcp
+     src: "{{ monitoring_server_ip  }}"
+     port: 8080
+  when: firewall

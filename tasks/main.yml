@@ -58,9 +58,20 @@
      dest: /etc/postfix/blacklisted_domains
   when: outgoing_policy
 
+- name: "Copy sender_access file"
+  copy:
+     src: secret/sender_access
+     dest: /etc/postfix/sender_access
+  when: outgoing_policy
+
 - name: "Create postfix map file for blacklist domain"
   command: postmap /etc/postfix/blacklisted_domains
   when: outgoing_policy
+
+- name: "Create postfix map file for sender_access"
+  command: postmap /etc/postfix/sender_access
+  when: outgoing_policy
+
 
 - name: "Copy transport file"
   copy:
@@ -87,3 +98,11 @@
 - name: "Configure OpenDKIM on Postfix"
   include: opendkim.yml
   when: opendkim
+
+- name: "Configure rsyslog service on Server"
+  include: rsyslog.yml
+  when: rsyslog
+
+- name: "Implement Monitoring scripts"
+  include: monitoring.yml
+  when: monitoring

@@ -1,3 +1,4 @@
 *.retry
 /main.yml
 /files/secret/
+/defaults/main.yml

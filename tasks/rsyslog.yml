@@ -1,0 +1,21 @@
+---
+- name: "Make sure rsyslog service is installed"
+  apt:
+     name: rsyslog
+     state: present
+
+- name: "Make sure rsyslog service is enabled and running"
+  service:
+     name: rsyslog
+     enabled: yes
+     state: started
+
+- name: "Generate rsyslog configuration file"
+  template:
+     src: rsyslog.conf.j2
+     dest: /etc/rsyslog.conf
+
+- name: "Restart rsyslgo server"
+  service:
+     name: rsyslog
+     state: restarted
