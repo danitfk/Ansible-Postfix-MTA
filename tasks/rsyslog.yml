@@ -1,8 +1,15 @@
 ---
-- name: "Make sure rsyslog service is installed"
+- name: "Make sure rsyslog service is installed (Debian/Ubuntu)"
   apt:
      name: rsyslog
      state: present
+  when: ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
+
+- name: "Make sure rsyslog service in installed (RHEL/CentOS)"
+  yum:
+     name: rsyslog
+     state: present
+  when: ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
 
 - name: "Make sure rsyslog service is enabled and running"
   service:
@@ -15,7 +22,7 @@
      src: rsyslog.conf.j2
      dest: /etc/rsyslog.conf
 
-- name: "Restart rsyslgo server"
+- name: "Restart rsyslog server"
   service:
      name: rsyslog
      state: restarted

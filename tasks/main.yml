@@ -18,34 +18,73 @@
 - name: "Change Mailname to Hostname"
   shell: echo "{{ hostname }}" > /etc/mailname
 
-- name: "Install Mail Utilities"
+- name: "Install Mail Utilities (Debian/Ubuntu)"
   apt:
      name: "mailutils"
      state: "present"
+
+  when: ansible_os_family == "Ubuntu" or  ansible_os_family == "Debian"
+
+- name: "Install Mail utilits (RHEL/CentOS)"
+  yum:
+    name: "mailx"
+    state: "present"
+  when: ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
 
 - name: "Enable Firewall"
   service:
      name: "ufw"
      enabled: "yes"
-  when: firewall
+  when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Add SMTP Rules rules"
+
+- name: "Enable Firewall"
+  service:
+     name: "firewalld"
+     enabled: "yes"
+  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+
+- name: "Add SMTP Rules rules (Debian/Ubuntu)"
   ufw:
      rule: allow
      proto: tcp
      src: "{{ loadbalancer_ip }}"
      port: 25
+  when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Add SSH Rule"
+- name: "Add SMTP Rules rules (Redhat/CentOS)"
+  firewalld:
+     state: enabled
+     permanent: yes
+     source: "{{ loadbalancer_ip }}"
+     port: 25/tcp
+  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+
+- name: "Add SSH Rule (Debian/Ubuntu)"
   ufw:
      rule: allow
      proto: tcp
      port: 22
+  when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Start Firewall"
+- name: "Add SSH Rule (Redhat/CentOS)"
+  firewalld:
+     state: enabled
+     permanent: yes
+     service: ssh
+  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+
+- name: "Start Firewall (Debian/Ubuntu)"
   service:
      name: "ufw"
      state: "started"
+  when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
+
+- name: "Start Firewall (Redhat/CentOS)"
+  service:
+     name: "firewalld"
+     state: "started"
+  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
 
 - name: "Generate Postfix configuration file"
   template:
