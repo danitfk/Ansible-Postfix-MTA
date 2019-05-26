@@ -1,8 +1,21 @@
 ---
-- name: "Install OpenDKIM"
+- name: "Install OpenDKIM (Debian/Ubuntu)"
   apt:
      name: "opendkim"
      state: "present"
+  when: ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
+
+- name: "Enable EPEL Repository (RedHat/CentOS)"
+  yum:
+     name: "epel-release"
+     state: "present"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
+
+- name: "Install OpenDKIM (RedHat/CentOS)"
+  yum:
+     name: "opendkim"
+     state: "present"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
 - name: "Copy OpenDKIM Config file into server"
   copy:

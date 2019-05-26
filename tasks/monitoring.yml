@@ -22,10 +22,18 @@
      daemon_reload: yes
      state: restarted
      enabled: yes
-- name: "Allow Monitoring server IP address to Web statistics"
+
+- name: "Allow Monitoring server IP address to Web statistics (Debian/Ubuntu)"
   ufw:
      rule: allow
      proto: tcp
      src: "{{ monitoring_server_ip  }}"
      port: 8080
-  when: firewall
+  when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
+
+- name: "Allow Monitoring server IP address to Web statistics (RedHat/CentOS)"
+  firewalld:
+     port: 8080/tcp
+     permanent: yes
+     state: enabled
+  when: firewall and ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
