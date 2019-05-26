@@ -3,13 +3,13 @@
   copy:
      src: postfix.sh
      dest: /usr/bin/postfix-toolkit.sh
-     mode: 755
+     mode: 0755
 
 - name: "Copy Web Statistics binary"
   copy:
      src: postfix-queue
      dest: /usr/bin/postfix-queue
-     mode: 755
+     mode: 0755
 
 - name: "Make sure systemd file of postfix-queue existed"
   copy:
@@ -22,7 +22,6 @@
      daemon_reload: yes
      state: restarted
      enabled: yes
-  
 - name: "Allow Monitoring server IP address to Web statistics"
   ufw:
      rule: allow
