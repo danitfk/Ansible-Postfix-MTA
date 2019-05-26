@@ -5,17 +5,17 @@
      state: "present"
   when: ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Enable EPEL Repository (Redhat/CentOS)"
+- name: "Enable EPEL Repository (RedHat/CentOS)"
   yum:
      name: "epel-release"
      state: "present"
-  when: ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
-- name: "Install OpenDKIM (Redhat/CentOS)"
+- name: "Install OpenDKIM (RedHat/CentOS)"
   yum:
      name: "opendkim"
      state: "present"
-  when: ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
 - name: "Copy OpenDKIM Config file into server"
   copy:

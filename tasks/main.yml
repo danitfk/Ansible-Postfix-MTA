@@ -10,10 +10,25 @@
      name: "{{ timezone }}"
 
 
-- name: "Install Postfix SMTP Server"
+- name: "Install Postfix SMTP Server (Debian/Ubuntu)"
   apt:
      name: "postfix"
      state: "present"
+  when: ansible_os_family == "Ubuntu" or  ansible_os_family == "Debian"
+
+- name: "Remove Sendmail (RedHat/CentOS)"
+  yum:
+     name: "sendmail"
+     state: "absent"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
+ 
+
+- name: "Install Postfix SMTP Server (RedHat/CentOS)"
+  yum:
+     name: "postfix"
+     state: "present"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
+
 
 - name: "Change Mailname to Hostname"
   shell: echo "{{ hostname }}" > /etc/mailname
@@ -29,9 +44,22 @@
   yum:
     name: "mailx"
     state: "present"
-  when: ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
-- name: "Enable Firewall"
+- name: "Make Sure Firewall installed (Debian/Ubuntu)"
+  apt:
+     name: "ufw"
+     state: present
+  when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
+
+- name: "Make Sure Firewall installed (RedHat/CentOS)"
+  yum:
+     name: "firewalld"
+     state: present
+  when: firewall and ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
+
+
+- name: "Enable Firewall (Debian/Ubuntu)"
   service:
      name: "ufw"
      enabled: "yes"
@@ -42,7 +70,7 @@
   service:
      name: "firewalld"
      enabled: "yes"
-  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: firewall and ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
 - name: "Add SMTP Rules rules (Debian/Ubuntu)"
   ufw:
@@ -52,13 +80,13 @@
      port: 25
   when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Add SMTP Rules rules (Redhat/CentOS)"
+- name: "Add SMTP Rules rules (RedHat/CentOS)"
   firewalld:
      state: enabled
      permanent: yes
      source: "{{ loadbalancer_ip }}"
      port: 25/tcp
-  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: firewall and ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
 - name: "Add SSH Rule (Debian/Ubuntu)"
   ufw:
@@ -67,12 +95,12 @@
      port: 22
   when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Add SSH Rule (Redhat/CentOS)"
+- name: "Add SSH Rule (RedHat/CentOS)"
   firewalld:
      state: enabled
      permanent: yes
      service: ssh
-  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: firewall and ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
 - name: "Start Firewall (Debian/Ubuntu)"
   service:
@@ -80,11 +108,11 @@
      state: "started"
   when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Start Firewall (Redhat/CentOS)"
+- name: "Start Firewall (RedHat/CentOS)"
   service:
      name: "firewalld"
      state: "started"
-  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: firewall and ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
 - name: "Generate Postfix configuration file"
   template:

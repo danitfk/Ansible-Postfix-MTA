@@ -9,7 +9,7 @@
   yum:
      name: rsyslog
      state: present
-  when: ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
 
 - name: "Make sure rsyslog service is enabled and running"
   service:

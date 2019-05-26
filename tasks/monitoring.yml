@@ -31,9 +31,9 @@
      port: 8080
   when: firewall and ansible_os_family == "Debian" or  ansible_os_family == "Ubuntu"
 
-- name: "Allow Monitoring server IP address to Web statistics (Redhat/CentOS)"
+- name: "Allow Monitoring server IP address to Web statistics (RedHat/CentOS)"
   firewalld:
-     port: 8080
+     port: 8080/tcp
      permanent: yes
      state: enabled
-  when: firewall and ansible_os_family == "Redhat" or  ansible_os_family == "CentOS"
+  when: firewall and ansible_os_family == "RedHat" or  ansible_os_family == "CentOS"
