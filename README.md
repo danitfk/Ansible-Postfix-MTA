@@ -10,13 +10,13 @@ This playbook will deploy a **Postfix** as an MTA server to sends emails from on
 
 ## Features:
 
-- Supports Debian(8,9) and Ubuntu Server (14.04,16.04,18.04)
+- Supports Debian(8,9) and Ubuntu Server (14.04,16.04,18.04), CentOS/Redhat 7.x
 - Deploy N number (to inifinity) of MTA Server at same time
 - Update configuration just once and deploy on all servers
 - Sending Limitation for specific domains (such as sends only 60 emails per hour to Yahoo!)
 - Supports DKIM Signature (opendkim)
 - Queue Management
-- Secure network access and manage UFW Firewall
+- Secure network access and manage Firewalld and UFW Firewall 
 - Supports Rsyslog Server
 - Supports Monitoring System (Zabbix, or others)
 - Print queue (Active, Deferred, All) on Port 8080 with Simple requests to server
