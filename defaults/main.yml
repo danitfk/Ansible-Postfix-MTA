@@ -1,6 +1,6 @@
 timezone: "Asia/Tehran"
-mynetworks: 127.0.0.0/8 79.175.191.0/24 172.19.0.0/16 79.175.141.0/24 79.175.132.0/25
-loadbalancer_ip: 79.175.191.238
+mynetworks: 127.0.0.0/8
+loadbalancer_ip: 
 haproxy: false
 opendkim: true
 outgoing_policy: true
@@ -8,10 +8,10 @@ rate_limit: true
 firewall: true
 queue_management: true
 rsyslog: true
-rsyslog_server: rsyslog.hezardastan.net
+rsyslog_server: 
 rsyslog_port: 514
 monitoring: true
-monitoring_server_ip: 194.34.160.20
+monitoring_server_ip: 
 # Mail routing is necessary when use rate limit
 mail_routing: true
 # Maximum Emails in queue default is 20,000
